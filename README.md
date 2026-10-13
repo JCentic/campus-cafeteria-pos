@@ -8,4 +8,8 @@ A simple point-of-sale prototype for the IT 415 practical exam. This project use
 2. In the project folder, run `npm install` once.
 3. Run `npm run dev` and open the local address shown in the terminal.
 
-The current screen is the initial project scaffold. Menu items, cart behavior, payment, and receipt handling are planned for later phases.
+## Current progress
+
+- **Phase 2 (interface):** The app has four pages. **Menu** and **Order** are in the navbar. **Cash payment** opens from the Order page, and **Receipt** opens after confirming payment.
+- The Menu shows the six Campus Cafeteria items with peso prices and an **Add to order** button for each.
+- Cart behavior, totals, payment checks, and the real receipt are planned for later phases.

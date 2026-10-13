@@ -132,24 +132,6 @@ ul {
   color: #f4fbf6;
 }
 
-.shift-status {
-  display: inline-flex;
-  align-items: center;
-  justify-self: end;
-  gap: 9px;
-  color: #435957;
-  font-size: 13px;
-  font-weight: 600;
-}
-
-.status-dot {
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: #4b9b70;
-  box-shadow: 0 0 0 3px #e2efe6;
-}
-
 /* ---------- Page heading ---------- */
 
 .page-heading {
@@ -687,10 +669,6 @@ h1 {
 
   .topbar {
     grid-template-columns: 1fr auto;
-  }
-
-  .shift-status {
-    display: none;
   }
 
   .split-layout,

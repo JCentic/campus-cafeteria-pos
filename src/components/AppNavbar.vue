@@ -44,9 +44,5 @@ function isActive(page) {
       </button>
     </nav>
 
-    <div class="shift-status">
-      <span class="status-dot" aria-hidden="true"></span>
-      <span>Register ready</span>
-    </div>
   </header>
 </template>

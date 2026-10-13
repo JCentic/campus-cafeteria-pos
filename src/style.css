@@ -311,6 +311,115 @@ h1 {
   font-weight: 600;
 }
 
+.order-table-head,
+.order-item {
+  grid-template-columns: minmax(130px, 1fr) 82px 128px 94px 58px;
+  align-items: center;
+}
+
+.order-table-head {
+  display: grid;
+}
+
+.order-list {
+  display: grid;
+  padding: 0;
+  list-style: none;
+}
+
+.order-item {
+  display: grid;
+  gap: 12px;
+  min-height: 76px;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.order-item:last-child {
+  border-bottom: 0;
+}
+
+.order-item-name {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+}
+
+.order-item-name strong {
+  color: var(--ink);
+  font-size: 14px;
+}
+
+.order-item-name span {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.order-unit-price,
+.order-subtotal {
+  text-align: right;
+  font-size: 14px;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.quantity-control {
+  display: inline-flex;
+  align-items: center;
+  justify-self: end;
+  gap: 8px;
+}
+
+.quantity-button {
+  display: grid;
+  width: 30px;
+  height: 30px;
+  place-items: center;
+  border: 1px solid #c9d7d0;
+  border-radius: 8px;
+  background: var(--surface);
+  color: var(--navy);
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.quantity-button:hover:not(:disabled) {
+  background: var(--leaf-soft);
+}
+
+.quantity-button:disabled {
+  color: #9aa8a3;
+  cursor: not-allowed;
+}
+
+.quantity-value {
+  min-width: 16px;
+  color: var(--ink);
+  font-size: 14px;
+  font-variant-numeric: tabular-nums;
+  text-align: center;
+}
+
+.remove-button {
+  padding: 6px 0;
+  border: 0;
+  background: transparent;
+  color: #8d443e;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.remove-button:hover {
+  color: #6e2d28;
+  text-decoration: underline;
+}
+
+.button:disabled {
+  background: #d9e1dd;
+  color: #6f7e78;
+  cursor: not-allowed;
+}
+
 .align-end {
   text-align: right;
 }
@@ -490,6 +599,42 @@ h1 {
   .split-layout,
   .menu-groups {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 700px) {
+  .order-table-head {
+    display: none;
+  }
+
+  .order-item {
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 10px 12px;
+  }
+
+  .order-item-name {
+    grid-column: 1;
+  }
+
+  .order-unit-price {
+    display: none;
+  }
+
+  .quantity-control {
+    grid-column: 1;
+    grid-row: 2;
+    justify-self: start;
+  }
+
+  .order-subtotal {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .remove-button {
+    grid-column: 2;
+    grid-row: 2;
+    justify-self: end;
   }
 }
 

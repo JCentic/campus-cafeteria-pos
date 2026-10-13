@@ -1,4 +1,9 @@
 .agents
 docs
+!docs/
+docs/*
+!docs/notes/
+docs/notes/*
+!docs/notes/ai-usage-log.md
 node_modules
 dist

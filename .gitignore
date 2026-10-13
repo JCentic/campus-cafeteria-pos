@@ -1,2 +1,4 @@
 .agents
 docs
+node_modules
+dist

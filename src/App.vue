@@ -14,6 +14,8 @@ const menuFeedback = ref('')
 const isMenuFeedbackVisible = ref(false)
 let menuFeedbackTimer
 const cart = ref([])
+const receipt = ref(null)
+let transactionSequence = 0
 const orderItems = computed(() => cart.value.map((entry) => {
   const product = products.find((item) => item.id === entry.productId)
   return {
@@ -58,6 +60,44 @@ function changeQuantity(productId, amount) {
 function removeItem(productId) {
   cart.value = cart.value.filter((item) => item.productId !== productId)
 }
+
+function completePayment(amountPaidCentavos) {
+  if (amountPaidCentavos < totalCentavos.value || orderItems.value.length === 0) return
+
+  transactionSequence += 1
+  const now = new Date()
+  const datePart = [
+    now.getFullYear(),
+    String(now.getMonth() + 1).padStart(2, '0'),
+    String(now.getDate()).padStart(2, '0'),
+  ].join('')
+  const timePart = [now.getHours(), now.getMinutes(), now.getSeconds()]
+    .map((value) => String(value).padStart(2, '0'))
+    .join('')
+
+  receipt.value = {
+    reference: `CAF-${datePart}-${timePart}-${String(transactionSequence).padStart(3, '0')}`,
+    items: orderItems.value.map(({ id, name, quantity, subtotalCentavos }) => ({
+      id,
+      name,
+      quantity,
+      subtotalCentavos,
+    })),
+    totalCentavos: totalCentavos.value,
+    amountPaidCentavos,
+    changeCentavos: amountPaidCentavos - totalCentavos.value,
+  }
+  currentPage.value = 'receipt'
+}
+
+function startNewTransaction() {
+  cart.value = []
+  receipt.value = null
+  currentPage.value = 'menu'
+  menuFeedback.value = ''
+  isMenuFeedbackVisible.value = false
+  clearTimeout(menuFeedbackTimer)
+}
 </script>
 
 <template>
@@ -80,8 +120,18 @@ function removeItem(productId) {
         @change-quantity="changeQuantity"
         @remove-item="removeItem"
       />
-      <PaymentPage v-else-if="currentPage === 'payment'" @navigate="goTo" />
-      <ReceiptPage v-else-if="currentPage === 'receipt'" @navigate="goTo" />
+      <PaymentPage
+        v-else-if="currentPage === 'payment'"
+        :total-centavos="totalCentavos"
+        :has-items="orderItems.length > 0"
+        @navigate="goTo"
+        @payment-success="completePayment"
+      />
+      <ReceiptPage
+        v-else-if="currentPage === 'receipt'"
+        :receipt="receipt"
+        @new-transaction="startNewTransaction"
+      />
     </main>
   </div>
 </template>

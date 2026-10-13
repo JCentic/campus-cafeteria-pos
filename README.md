@@ -12,4 +12,5 @@ A simple point-of-sale prototype for the IT 415 practical exam. This project use
 
 - **Phase 2 (interface):** The app has four pages. **Menu** and **Order** are in the navbar. **Cash payment** opens from the Order page, and **Receipt** opens after confirming payment.
 - The Menu shows the six Campus Cafeteria items with peso prices and an **Add to order** button for each.
-- Cart behavior, totals, payment checks, and the real receipt are planned for later phases.
+- The Order page supports quantity changes and item removal, with centavo-based subtotals and totals.
+- Cash payment validates the amount, calculates change, and creates a digital receipt with a transaction reference. **Start new transaction** clears the sale and returns to the menu.

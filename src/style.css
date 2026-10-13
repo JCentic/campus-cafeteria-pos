@@ -180,6 +180,12 @@ h1 {
   color: var(--leaf-dark);
   font-size: 14px;
   font-weight: 650;
+  opacity: 0;
+  transition: opacity 180ms ease-out;
+}
+
+.feedback.is-visible {
+  opacity: 1;
 }
 
 /* ---------- Buttons ---------- */

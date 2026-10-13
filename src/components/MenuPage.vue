@@ -5,6 +5,7 @@ import { formatPeso } from '../utils/currency.js'
 defineProps({
   // Short message shown after a product is picked (filled in by App.vue).
   feedback: { type: String, default: '' },
+  feedbackVisible: { type: Boolean, default: false },
 })
 
 const emit = defineEmits(['add-to-order'])
@@ -21,7 +22,14 @@ function productsIn(category) {
         <h1 id="menu-title">Menu</h1>
         <p class="page-description">Pick items for the customer’s order.</p>
       </div>
-      <p class="feedback" role="status" aria-live="polite">{{ feedback }}</p>
+      <p
+        class="feedback"
+        :class="{ 'is-visible': feedbackVisible }"
+        role="status"
+        aria-live="polite"
+      >
+        {{ feedback }}
+      </p>
     </div>
 
     <div class="menu-groups">

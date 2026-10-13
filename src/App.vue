@@ -11,6 +11,8 @@ import { products } from './data/products.js'
 // A simple ref is enough here, so no router package is needed.
 const currentPage = ref('menu')
 const menuFeedback = ref('')
+const isMenuFeedbackVisible = ref(false)
+let menuFeedbackTimer
 const cart = ref([])
 const orderItems = computed(() => cart.value.map((entry) => {
   const product = products.find((item) => item.id === entry.productId)
@@ -26,6 +28,8 @@ const totalCentavos = computed(() => orderItems.value.reduce((sum, item) => sum 
 function goTo(page) {
   currentPage.value = page
   menuFeedback.value = ''
+  isMenuFeedbackVisible.value = false
+  clearTimeout(menuFeedbackTimer)
 }
 
 function handleAddToOrder(product) {
@@ -35,7 +39,13 @@ function handleAddToOrder(product) {
   } else {
     cart.value.push({ productId: product.id, quantity: 1 })
   }
-  menuFeedback.value = `${product.name} added to order.`
+  const quantity = cart.value.find((item) => item.productId === product.id).quantity
+  menuFeedback.value = `Added ${product.name}. Quantity in order: ${quantity}.`
+  isMenuFeedbackVisible.value = true
+  clearTimeout(menuFeedbackTimer)
+  menuFeedbackTimer = setTimeout(() => {
+    isMenuFeedbackVisible.value = false
+  }, 2800)
 }
 
 function changeQuantity(productId, amount) {
@@ -58,6 +68,7 @@ function removeItem(productId) {
       <MenuPage
         v-if="currentPage === 'menu'"
         :feedback="menuFeedback"
+        :feedback-visible="isMenuFeedbackVisible"
         @add-to-order="handleAddToOrder"
       />
       <OrderPage
